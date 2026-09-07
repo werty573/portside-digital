@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://werty573.github.io/portside-digital/sitemap.xml
