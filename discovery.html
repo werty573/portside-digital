@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Brief — Portside Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marine: #0B1F2A;
+    --marine-soft: #142B38;
+    --marine-line: rgba(239, 230, 216, 0.12);
+    --sand: #EFE6D8;
+    --sand-dim: #B9AC93;
+    --orange: #E1592D;
+    --orange-bright: #F16A3D;
+    --brass: #A9825C;
+    --paper: #FAF7F1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--marine); color: var(--sand);
+    font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+    padding: 60px 20px 100px;
+  }
+  .wrap { max-width: 620px; margin: 0 auto; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange);
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+    font-size: clamp(28px, 5vw, 38px); margin: 14px 0 12px; line-height: 1.15;
+  }
+  .intro { color: var(--sand-dim); font-size: 15px; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+
+  .brief-form {
+    background: var(--marine-soft); border: 1px solid var(--marine-line);
+    border-radius: 4px; padding: 34px 30px;
+  }
+  fieldset { border: none; margin-bottom: 30px; }
+  fieldset:last-of-type { margin-bottom: 0; }
+  legend {
+    font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600;
+    color: var(--orange-bright); padding-bottom: 10px; margin-bottom: 16px;
+    border-bottom: 1px solid var(--marine-line); width: 100%;
+  }
+  .form-row { margin-bottom: 18px; }
+  .form-row:last-child { margin-bottom: 0; }
+  .form-row label {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass); margin-bottom: 8px;
+  }
+  .form-row .hint { font-size: 12px; color: var(--sand-dim); margin-top: 6px; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: normal; }
+  .form-row input[type="text"], .form-row input[type="tel"], .form-row input[type="email"],
+  .form-row input[type="number"], .form-row input[type="file"], .form-row select, .form-row textarea {
+    width: 100%; background: var(--marine); border: 1px solid var(--marine-line);
+    color: var(--sand); padding: 12px 14px; border-radius: 2px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--orange); }
+  .form-row textarea { resize: vertical; min-height: 70px; }
+  .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 500px) { .form-two-col { grid-template-columns: 1fr; } }
+
+  .check-grid { display: flex; flex-direction: column; gap: 10px; }
+  .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .check-row input { width: 16px; height: 16px; accent-color: var(--orange); }
+
+  .radio-row { display: flex; flex-direction: column; gap: 10px; }
+  .radio-option { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .radio-option input { accent-color: var(--orange); }
+
+  .form-submit {
+    width: 100%; background: var(--orange); color: var(--paper); border: none;
+    padding: 15px 26px; border-radius: 2px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s; margin-top: 6px;
+  }
+  .form-submit:hover { background: var(--orange-bright); }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .form-error { display: none; color: #F16A3D; font-size: 13px; margin-top: 14px; text-align: center; }
+  .form-success {
+    display: none; text-align: center; background: rgba(94,168,122,0.1);
+    border: 1px solid rgba(127,203,156,0.3); border-radius: 4px; padding: 44px 32px;
+  }
+  .form-success h3 { color: #7FCB9C; font-size: 20px; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+  .form-success p { color: var(--sand-dim); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Project Brief</div>
+  <h1>Let's get the details right before we start.</h1>
+  <p class="intro">This takes about 5 minutes. The more we know upfront, the fewer back-and-forths once we're building.</p>
+
+  <!-- Replace YOUR_FORM_ID with your Formspree endpoint ID -->
+  <form id="brief-form" class="brief-form">
+    <input type="hidden" name="form_type" value="Full Project Brief">
+
+    <fieldset>
+      <legend>About your business</legend>
+      <div class="form-row">
+        <label for="biz-name">Business name</label>
+        <input type="text" id="biz-name" name="business_name" required>
+      </div>
+      <div class="form-row">
+        <label for="biz-desc">What does your business do?</label>
+        <textarea id="biz-desc" name="business_description" placeholder="A couple sentences is fine" required></textarea>
+      </div>
+      <div class="form-two-col">
+        <div class="form-row">
+          <label for="contact-name">Your name</label>
+          <input type="text" id="contact-name" name="contact_name" required>
+        </div>
+        <div class="form-row">
+          <label for="contact-phone">Phone / WhatsApp</label>
+          <input type="tel" id="contact-phone" name="contact_phone" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Brand &amp; content</legend>
+      <div class="form-row">
+        <label>Do you already have a logo?</label>
+        <div class="radio-row">
+          <label class="radio-option"><input type="radio" name="has_logo" value="Yes" required> Yes, I'll send it</label>
+          <label class="radio-option"><input type="radio" name="has_logo" value="No"> No, I need one designed</label>
+          <label class="radio-option"><input type="radio" name="has_logo" value="Basic"> I have something basic</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Photos &amp; text content — where are you at?</label>
+        <div class="radio-row">
+          <label class="radio-option"><input type="radio" name="content_status" value="Ready" required> Ready to send</label>
+          <label class="radio-option"><input type="radio" name="content_status" value="Partial"> I have some, need help with the rest</label>
+          <label class="radio-option"><input type="radio" name="content_status" value="None"> Need help with all of it</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="logo-upload">Upload a logo or reference images (optional)</label>
+        <input type="file" id="logo-upload" name="attachment" accept="image/*" multiple>
+        <div class="hint">Up to a few files — logo, photos, or a screenshot of a site you like.</div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>What you need</legend>
+      <div class="form-row">
+        <label for="package">Package (from the pricing page)</label>
+        <select id="package" name="package">
+          <option value="Not sure yet">Not sure yet</option>
+          <option value="The Dock ($800-1,500)">The Dock ($800–1,500)</option>
+          <option value="The Passage ($2,500-3,500)">The Passage ($2,500–3,500)</option>
+          <option value="The Voyage ($4,000+)">The Voyage ($4,000+)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="pages">Roughly how many pages?</label>
+        <input type="number" id="pages" name="page_count" min="1" placeholder="e.g. 5">
+      </div>
+      <div class="form-row">
+        <label>Any features you need? (check all that apply)</label>
+        <div class="check-grid">
+          <label class="check-row"><input type="checkbox" name="features" value="Booking form"> Booking / appointment form</label>
+          <label class="check-row"><input type="checkbox" name="features" value="Online store"> Online store / payments</label>
+          <label class="check-row"><input type="checkbox" name="features" value="Photo gallery"> Photo gallery</label>
+          <label class="check-row"><input type="checkbox" name="features" value="Blog"> Blog / news section</label>
+          <label class="check-row"><input type="checkbox" name="features" value="Map / location"> Map / location</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="inspiration">Any websites you like the look of?</label>
+        <input type="text" id="inspiration" name="inspiration" placeholder="Paste a link or two if you have them">
+      </div>
+      <div class="form-row">
+        <label for="timeline">When do you need this live?</label>
+        <input type="text" id="timeline" name="timeline" placeholder="e.g. within 2 weeks, no rush, etc.">
+      </div>
+      <div class="form-row">
+        <label for="notes">Anything else we should know?</label>
+        <textarea id="notes" name="additional_notes"></textarea>
+      </div>
+    </fieldset>
+
+    <button type="submit" class="form-submit">Send project brief</button>
+    <div class="form-error" id="form-error">Something went wrong — please send these details over WhatsApp instead.</div>
+  </form>
+
+  <div class="form-success" id="form-success">
+    <h3>Brief received ✓</h3>
+    <p>Thanks — we've got everything we need to get started. We'll follow up shortly to confirm next steps.</p>
+  </div>
+</div>
+
+<script>
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkjnqeab";
+
+  const briefForm = document.getElementById('brief-form');
+  const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
+
+  briefForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = briefForm.querySelector('.form-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    formError.style.display = 'none';
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(briefForm),
+      });
+
+      if (response.ok) {
+        briefForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      formError.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send project brief';
+    }
+  });
+</script>
+</body>
+</html>
