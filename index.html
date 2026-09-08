@@ -222,8 +222,21 @@
   .tier-card {
     border: 1px solid var(--paper-line); border-radius: 4px;
     padding: 34px 28px; background: #fff; position: relative;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(11,31,42,0.1);
+    border-color: var(--orange);
+  }
+  .tier-card:focus-visible {
+    outline: 2px solid var(--orange); outline-offset: 3px;
   }
   .tier-card.mid { border-color: var(--orange); }
+  .tier-cta {
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--paper-line);
+    font-size: 13px; font-weight: 600; color: var(--orange);
+  }
   .tier-badge {
     position: absolute; top: -12px; right: 24px;
     background: var(--orange); color: #fff;
@@ -398,7 +411,7 @@
       <p>Every tier includes a mobile-responsive build, a contact form, and one round of revisions before launch.</p>
     </div>
     <div class="tier-grid">
-      <div class="tier-card reveal">
+      <div class="tier-card reveal" data-package="The Dock ($800-1,500)" role="button" tabindex="0">
         <div class="tier-name">Starter</div>
         <div class="tier-title">The Dock</div>
         <div class="tier-price">$800<span> – $1,500 TTD</span></div>
@@ -408,8 +421,9 @@
           <li>Contact form</li>
           <li>7-day turnaround</li>
         </ul>
+        <div class="tier-cta">Start with this →</div>
       </div>
-      <div class="tier-card mid reveal">
+      <div class="tier-card mid reveal" data-package="The Passage ($2,500-3,500)" role="button" tabindex="0">
         <div class="tier-badge">Most booked</div>
         <div class="tier-name">Standard</div>
         <div class="tier-title">The Passage</div>
@@ -420,8 +434,9 @@
           <li>Basic on-page SEO</li>
           <li>WhatsApp / booking integration</li>
         </ul>
+        <div class="tier-cta">Start with this →</div>
       </div>
-      <div class="tier-card reveal">
+      <div class="tier-card reveal" data-package="The Voyage ($4,000+)" role="button" tabindex="0">
         <div class="tier-name">Growth</div>
         <div class="tier-title">The Voyage</div>
         <div class="tier-price">$4,000<span>+ TTD</span></div>
@@ -431,6 +446,7 @@
           <li>Stronger SEO setup</li>
           <li>Ongoing maintenance option</li>
         </ul>
+        <div class="tier-cta">Start with this →</div>
       </div>
     </div>
   </div>
@@ -537,6 +553,25 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => obs.observe(el));
+
+  // ---------- PRICING CARD → BOOKING FORM ----------
+  function selectPackageAndScroll(card) {
+    const pkg = card.getAttribute('data-package');
+    const select = document.getElementById('package');
+    if (select && pkg) select.value = pkg;
+    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('.tier-card').forEach(card => {
+    card.addEventListener('click', () => selectPackageAndScroll(card));
+    // keyboard support for accessibility (Enter / Space)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectPackageAndScroll(card);
+      }
+    });
+  });
 
   // ---------- BOOKING FORM SUBMISSION ----------
   // Replace YOUR_FORM_ID with the real endpoint ID from your Formspree account
